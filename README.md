@@ -1,3 +1,19 @@
+# DevOps Project Description 
+
+This will be the base app for developinig the DevOps Final Project, as the main goal of Pengembangan Sistem dan Operasi (System Development and Operations) course.
+
+## Course Description
+DevOps merupakan gabungan dari dua kata Development dan Operations dimana mata kuliah ini akan mengajarkan development/pengembangan dari sebuah sistem/aplikasi dengan operation/operasional. Devops memiliki prinsip developer untuk mengkoordinasikan antar tim yaitu tim development dengan tim operations dengan efektif dan efisien. Hal yang akan dipelajari adalah Operating System, Pengelolaan server, Cloud computing, Workflow management system, process automation, dan lain sebagainya.
+![image](https://github.com/user-attachments/assets/8ce61850-9223-4646-8918-c1b328cafb9e)
+
+
+## Members
+We are working as Group 12:
+* 5026221139 - Dimas Fajar Ramadhan 
+* 5026221144 - Alfa Renaldo Aluska 
+* 5026221156 - Muhammad Ali Husain 
+* 5026221159 - Candleline Audrina Firsta 
+
 # MyNotes - Simple and Modern Day-to-Day Tasks Notes App
 
 Welcome to **MyNotes** 📓, your solution for effortless day-to-day task management. This intuitive notes app, created with React.js and adorned with Tailwind CSS, offers a clean, modern, and user-friendly interface to help you stay organized and productive.
