@@ -1,6 +1,6 @@
 # DevOps Project Description 
 
-This will be the base app for developinig the DevOps Final Project, as the main goal of Pengembangan Sistem dan Operasi (System Development and Operations) course.
+This will be the base app for developinig the DevOps Final Project, as the main goal of Pengembangan Sistem dan Operasi (System Development and Operations) course. This course is a part of the Information Systems department of Institut Teknologi Sepuluh Nopember (ITS) Surabaya.
 
 ## Course Description
 DevOps merupakan gabungan dari dua kata Development dan Operations dimana mata kuliah ini akan mengajarkan development/pengembangan dari sebuah sistem/aplikasi dengan operation/operasional. Devops memiliki prinsip developer untuk mengkoordinasikan antar tim yaitu tim development dengan tim operations dengan efektif dan efisien. Hal yang akan dipelajari adalah Operating System, Pengelolaan server, Cloud computing, Workflow management system, process automation, dan lain sebagainya.
@@ -8,7 +8,7 @@ DevOps merupakan gabungan dari dua kata Development dan Operations dimana mata k
 
 
 ## Members
-We are working as Group 12:
+We are working as Group 12 (Student ID - Name): 
 * 5026221139 - Dimas Fajar Ramadhan 
 * 5026221144 - Alfa Renaldo Aluska 
 * 5026221156 - Muhammad Ali Husain 
