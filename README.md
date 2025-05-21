@@ -4,11 +4,12 @@ This will be the base app for developinig the DevOps Final Project, as the main 
 
 ## Course Description
 DevOps merupakan gabungan dari dua kata Development dan Operations dimana mata kuliah ini akan mengajarkan development/pengembangan dari sebuah sistem/aplikasi dengan operation/operasional. Devops memiliki prinsip developer untuk mengkoordinasikan antar tim yaitu tim development dengan tim operations dengan efektif dan efisien. Hal yang akan dipelajari adalah Operating System, Pengelolaan server, Cloud computing, Workflow management system, process automation, dan lain sebagainya.
+
 ![image](https://github.com/user-attachments/assets/8ce61850-9223-4646-8918-c1b328cafb9e)
 
 
 ## Members
-We are working as Group 12 (Student ID - Name): 
+We are working as Group 11 (Student ID - Name): 
 * 5026221139 - Dimas Fajar Ramadhan 
 * 5026221144 - Alfa Renaldo Aluska 
 * 5026221156 - Muhammad Ali Husain 
