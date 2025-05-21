@@ -46,12 +46,6 @@ MyNotes showcases the perfect blend of technology and style:
 
 MyNotes utilizes the browser's local storage to ensure your notes persist even after closing the app.
 
-## 🤝 Contributions
+## 📬 Source
 
-Your contributions are invaluable! Feel free to contribute by opening issues or pull requests.
-
-## 📬 Contact
-
-This project was created by Sahil Makadia. For any queries or feedback, feel free to reach out via email at makadiasahil9846@gmail.com .
-
-Thank you for selecting MyNotes! We're dedicated to enhancing your task management. If you have any questions or feedback, don't hesitate to reach out. Happy organizing! 📅
+This project was forked from Sahil Makadia's repository. 📅
