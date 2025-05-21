@@ -9,7 +9,7 @@ DevOps merupakan gabungan dari dua kata Development dan Operations dimana mata k
 
 
 ## Members
-We are working as Group 11 (Student ID - Name): 
+We are working as Group 12 (Student ID - Name): 
 * 5026221139 - Dimas Fajar Ramadhan 
 * 5026221144 - Alfa Renaldo Aluska 
 * 5026221156 - Muhammad Ali Husain 
