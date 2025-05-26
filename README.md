@@ -1,3 +1,20 @@
+# DevOps Project Description 
+
+This will be the base app for developinig the DevOps Final Project, as the main goal of Pengembangan Sistem dan Operasi (System Development and Operations) course. This course is a part of the Information Systems department of Institut Teknologi Sepuluh Nopember (ITS) Surabaya.
+
+## Course Description
+DevOps merupakan gabungan dari dua kata Development dan Operations dimana mata kuliah ini akan mengajarkan development/pengembangan dari sebuah sistem/aplikasi dengan operation/operasional. Devops memiliki prinsip developer untuk mengkoordinasikan antar tim yaitu tim development dengan tim operations dengan efektif dan efisien. Hal yang akan dipelajari adalah Operating System, Pengelolaan server, Cloud computing, Workflow management system, process automation, dan lain sebagainya.
+
+![image](https://github.com/user-attachments/assets/8ce61850-9223-4646-8918-c1b328cafb9e)
+
+
+## Members
+We are working as Group 12 (Student ID - Name): 
+* 5026221139 - Dimas Fajar Ramadhan 
+* 5026221144 - Alfa Renaldo Aluska 
+* 5026221156 - Muhammad Ali Husain 
+* 5026221159 - Candleline Audrina Firsta 
+
 # MyNotes - Simple and Modern Day-to-Day Tasks Notes App
 
 Welcome to **MyNotes** 📓, your solution for effortless day-to-day task management. This intuitive notes app, created with React.js and adorned with Tailwind CSS, offers a clean, modern, and user-friendly interface to help you stay organized and productive.
@@ -46,12 +63,6 @@ MyNotes showcases the perfect blend of technology and style:
 
 MyNotes utilizes the browser's local storage to ensure your notes persist even after closing the app.
 
-## 🤝 Contributions
+## 📬 Source
 
-Your contributions are invaluable! Feel free to contribute by opening issues or pull requests.
-
-## 📬 Contact
-
-This project was created by Sahil Makadia. For any queries or feedback, feel free to reach out via email at makadiasahil9846@gmail.com .
-
-Thank you for selecting MyNotes! We're dedicated to enhancing your task management. If you have any questions or feedback, don't hesitate to reach out. Happy organizing! 📅
+This MyNotes project was forked from Sahil Makadia's repository (https://github.com/SahilM2063/React_Notes_App). 📅
