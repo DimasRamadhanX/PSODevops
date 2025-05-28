@@ -1,10 +1,10 @@
-name: Continuous Integration (Half-CD)
+name: Continuous Integration
 
 on:
   push:
-    branches: [main, dev]
+    branches: [dev]
   pull_request:
-    branches: [main]
+    branches: [dev]
 
 jobs:
   lint-test-build-push:
