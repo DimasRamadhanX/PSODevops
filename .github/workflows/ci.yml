@@ -1,4 +1,4 @@
-name: Continuous Integration (Half-CD)
+name: Continuous Integration
 
 on:
   push:
