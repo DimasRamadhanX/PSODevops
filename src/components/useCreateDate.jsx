@@ -1,5 +1,3 @@
-/* eslint-disable no-fallthrough */
-/* eslint-disable no-unused-vars */
 const useCreateDate = () => {
   const dateObj = new Date();
   const month = dateObj.getMonth();

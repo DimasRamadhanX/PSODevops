@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import { MdClose } from "react-icons/md";
@@ -22,7 +21,7 @@ const Notes = ({ notes }) => {
     );
   };
 
-  useEffect(handleSearch, [text]);
+  useEffect(handleSearch, [text, notes]);
 
   return (
     <section className="lg:w-[80%] lg:p-10 h-[screen-4%] lg:gap-4 md:w-[90%] md:h-[90%] md:p-4 md:gap-3 flex justify-between items-center flex-col bg-[#171616] rounded-[12px] sm:w-[90%] sm:h-[90%] sm:p-3 sm:gap-3 w-full h-full p-2 gap-3">
@@ -40,10 +39,11 @@ const Notes = ({ notes }) => {
             className="border-none outline-none bg-transparent text-white h-[80%] w-[60%] pl-6 text-[16px] "
             type="text"
             autoFocus
-            onChange={(e) => {
-              setText(e.target.value);
-              handleSearch();
-            }}
+            onChange={(e) => setText(e.target.value)}
+            //onChange={(e) => {
+            //  setText(e.target.value);
+            //  handleSearch();
+            //}}
             placeholder="Keywords..."
           />
         )}
