@@ -48,6 +48,9 @@ jobs:
       - name: Check Active Account
         run: gcloud auth list
 
+      - name: Pull Docker Image
+        run: docker pull docker.io/dimdimbul/pso-kelompok12:latest
+
       - name: Deploy to Cloud Run from DockerHub
         run: |
           gcloud run deploy pso-kelompok12 \
