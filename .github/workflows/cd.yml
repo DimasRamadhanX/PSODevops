@@ -6,10 +6,33 @@ on:
       - main
 
 jobs:
-  deploy:
+  provision:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Create credentials.json
+        run: |
+          echo '${{ secrets.GCP_SA_KEY }}' > credentials.json
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -var="credentials=credentials.json" -var="project=${{ secrets.GCP_PROJECT_ID }}"
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -var="credentials=credentials.json" -var="project=${{ secrets.GCP_PROJECT_ID }}"
+
+  deploy:
+    needs: provision
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Cloud SDK
@@ -22,7 +45,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Check active account
+      - name: Check Active Account
         run: gcloud auth list
 
       - name: Deploy to Cloud Run from DockerHub
