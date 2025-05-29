@@ -31,7 +31,7 @@ const Notes = ({ notes }) => {
       >
         {!showSearch && (
           <h2 className="text-[28px] text-white ml-5 font-['Poppu']">
-            My Notes
+            Our Notes
           </h2>
         )}
         {showSearch && (
