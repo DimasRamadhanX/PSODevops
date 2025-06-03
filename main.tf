@@ -1,21 +1,38 @@
-provider "google" {
-  credentials = var.credentials
-  project     = var.project
-  region      = var.region
-}
-
 variable "credentials" {}
 variable "project" {}
 variable "region" {
   default = "asia-southeast2"
 }
 
+provider "google" {
+  credentials = file(var.credentials)
+  project     = var.project
+  region      = var.region
+}
+
 resource "google_storage_bucket" "static" {
   name     = "${var.project}-static-bucket"
-  location = var.region
+  location = variable "credentials" {}
+variable "project" {}
+variable "region" {
+  default = "asia-southeast2"
+}
 
-  # Tambahan: cegah destroy dan error apply
-  lifecycle {
-    prevent_destroy = true
-  }
+variable "create_bucket" {
+  type    = bool
+  default = true
+}
+
+provider "google" {
+  credentials = file(var.credentials)
+  project     = var.project
+  region      = var.region
+}
+
+resource "google_storage_bucket" "static" {
+  count    = var.create_bucket ? 1 : 0
+  name     = "${var.project}-static-bucket"
+  location = var.region
+}
+var.region
 }

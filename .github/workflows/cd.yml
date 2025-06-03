@@ -6,45 +6,7 @@ on:
       - main
 
 jobs:
-  provision:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
-
-      - name: Create credentials.json
-        run: echo '${{ secrets.GCP_SA_KEY }}' > credentials.json
-
-      - name: Terraform Init
-        run: terraform init
-
-      # Tambahan opsional (debug): list existing buckets
-      - name: List existing buckets (debug)
-        run: |
-          curl -s -X GET \
-            -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" \
-            "https://storage.googleapis.com/storage/v1/b"
-
-      # Check if bucket already exists
-      - name: Skip Apply if Bucket Exists
-        run: |
-          BUCKET_NAME="${{ secrets.GCP_PROJECT_ID }}-static-bucket"
-          if gsutil ls -b gs://$BUCKET_NAME >/dev/null 2>&1; then
-            echo "Bucket already exists, skipping terraform apply"
-            exit 0
-          fi
-
-      - name: Terraform Plan
-        run: terraform plan -var="credentials=credentials.json" -var="project=${{ secrets.GCP_PROJECT_ID }}"
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve -var="credentials=credentials.json" -var="project=${{ secrets.GCP_PROJECT_ID }}"
-
   deploy:
-    needs: provision
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
