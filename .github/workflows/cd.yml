@@ -1,36 +1,37 @@
-name: Terraform Deploy to GCP (Infra branch)
+name: Continuous Development
 
 on:
   push:
     branches:
-      - infra
+      - main
 
 jobs:
-  terraform:
+  deploy:
     runs-on: ubuntu-latest
-
-    env:
-      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-
     steps:
-      - name: Checkout repo
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
         with:
-          terraform_version: 1.6.6
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Write service account key file
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Check Active Account
+        run: gcloud auth list
+
+      - name: Pull Docker Image
+        run: docker pull docker.io/dimdimbul/pso-kelompok12:latest
+
+      - name: Deploy to Cloud Run from DockerHub
         run: |
-          echo "$GCP_SA_KEY" > sa-key.json
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Plan
-        run: terraform plan -var="credentials=sa-key.json" -var="project=$GCP_PROJECT_ID"
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve -var="credentials=sa-key.json" -var="project=$GCP_PROJECT_ID"
+          gcloud run deploy pso-kelompok12 \
+            --image docker.io/dimdimbul/pso-kelompok12:latest \
+            --region asia-southeast2 \
+            --platform managed \
+            --allow-unauthenticated
