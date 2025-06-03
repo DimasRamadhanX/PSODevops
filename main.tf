@@ -13,4 +13,9 @@ variable "region" {
 resource "google_storage_bucket" "static" {
   name     = "${var.project}-static-bucket"
   location = var.region
+
+  # Tambahan: cegah destroy dan error apply
+  lifecycle {
+    prevent_destroy = true
+  }
 }
