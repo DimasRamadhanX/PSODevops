@@ -1,26 +1,23 @@
-variable "credentials" {}
-variable "project" {}
-variable "region" {
-  default = "asia-southeast2"
+variable "credentials" {
+  description = "Path ke service account JSON file"
+  type        = string
 }
 
-provider "google" {
-  credentials = file(var.credentials)
-  project     = var.project
-  region      = var.region
+variable "project" {
+  description = "GCP Project ID"
+  type        = string
 }
 
-resource "google_storage_bucket" "static" {
-  name     = "${var.project}-static-bucket"
-  location = variable "credentials" {}
-variable "project" {}
 variable "region" {
-  default = "asia-southeast2"
+  description = "GCP region"
+  type        = string
+  default     = "asia-southeast2"
 }
 
 variable "create_bucket" {
-  type    = bool
-  default = true
+  description = "Apakah bucket ingin dibuat?"
+  type        = bool
+  default     = true
 }
 
 provider "google" {
@@ -33,6 +30,4 @@ resource "google_storage_bucket" "static" {
   count    = var.create_bucket ? 1 : 0
   name     = "${var.project}-static-bucket"
   location = var.region
-}
-var.region
 }
