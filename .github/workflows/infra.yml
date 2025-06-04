@@ -1,0 +1,28 @@
+name: Infra Provisioning
+
+on:
+  push:
+    branches:
+      - infra
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v2
+
+      - name: Create credentials.json
+        run: echo '${{ secrets.GCP_SA_KEY }}' > credentials.json
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -var="credentials=credentials.json" -var="project=${{ secrets.GCP_PROJECT_ID }}" -var="create_bucket=true"
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -var="credentials=credentials.json" -var="project=${{ secrets.GCP_PROJECT_ID }}" -var="create_bucket=true"
