@@ -1,4 +1,5 @@
 import { describe, it, expect, afterEach } from "vitest";
+/* global vi */
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
