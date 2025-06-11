@@ -9,7 +9,7 @@ import useCreateDate from "../components/useCreateDate";
 const CreateNote = ({ setNotes }) => {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
-  const date = useCreateDate();
+  const { pretty, iso } = useCreateDate();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -20,7 +20,8 @@ const CreateNote = ({ setNotes }) => {
         id: uuid(),
         title,
         details,
-        date,
+        date: pretty,       // untuk ditampilkan
+        createdAt: iso      // untuk sorting
       };
 
       //Add note to notes array

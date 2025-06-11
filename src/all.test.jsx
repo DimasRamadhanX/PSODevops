@@ -6,6 +6,7 @@ import App from "./App";
 import NoteItem from "./components/NoteItem";
 import useCreateDate from "./components/useCreateDate";
 import Notes from "./pages/Notes";
+import CreateNote from "./pages/CreateNote";
 
 // Bersihkan DOM setelah tiap test
 afterEach(() => cleanup());
@@ -74,7 +75,7 @@ describe("🧾 NoteItem Component", () => {
 describe("🕒 useCreateDate Hook", () => {
   const TestComponent = () => {
     const date = useCreateDate();
-    return <span data-testid="generated-date">{date}</span>;
+    return <span data-testid="generated-date">{date.pretty}</span>;
   };
 
   it("menghasilkan format tanggal valid", () => {
@@ -147,28 +148,36 @@ describe("🌐 App Component", () => {
   });
 });
 
-// // ==========================================
-// // ✅ CreateNote Form - Simpan Catatan Baru
-// // ==========================================
-// describe("📝 CreateNote Form", () => {
-//   it("menambahkan catatan baru", () => {
-//     localStorage.clear(); // reset
+// ==========================================
+// ✅ CreateNote Form - Simpan Catatan Baru
+// ==========================================
+describe("📝 CreateNote Form", () => {
+  it("menambahkan catatan baru", () => {
+    const mockSetNotes = vi.fn();
 
-//     render(
-//       <MemoryRouter initialEntries={['/create-note']}>
-//         <App />
-//       </MemoryRouter>
-//     );
+    render(
+      <MemoryRouter>
+        <CreateNote setNotes={mockSetNotes} />
+      </MemoryRouter>
+    );
 
-//     // Ganti regex placeholder sesuai dengan isi asli
-//     const input = screen.getByPlaceholderText("Title");
-//     fireEvent.change(input, { target: { value: "Catatan Baru" } });
+    const input = screen.getByPlaceholderText(/title/i);
+    fireEvent.change(input, { target: { value: "Catatan Baru" } });
 
-//     const save = screen.getByRole("button", { name: /save/i });
-//     fireEvent.click(save);
+    const details = screen.getByPlaceholderText(/notes details/i);
+    fireEvent.change(details, { target: { value: "Isi catatan" } });
 
-//     // Verifikasi catatan ditambahkan
-//     expect(screen.getByText("Catatan Baru")).toBeInTheDocument();
-//   });
-// });
+    const save = screen.getByRole("button", { name: /save/i });
+    fireEvent.click(save);
+
+    // ✅ Verifikasi bahwa setNotes dipanggil
+    expect(mockSetNotes).toHaveBeenCalled();
+
+    // Optional: cek isi catatan baru
+    const call = mockSetNotes.mock.calls[0][0];
+    const newNotes = call([]);
+    expect(newNotes[0].title).toBe("Catatan Baru");
+  });
+});
+
 
