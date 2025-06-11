@@ -96,7 +96,7 @@ describe("📓 Notes Component", () => {
       </MemoryRouter>
     );
     expect(screen.getByText(shortTitle)).toBeInTheDocument();
-    expect(screen.getByText(longTitle.slice(0, 20) + "...")).toBeInTheDocument();
+    expect(screen.getByText(longTitle.slice(0, 17) + "...")).toBeInTheDocument();
   });
 
   it("menampilkan pesan jika tidak ada catatan cocok", () => {
