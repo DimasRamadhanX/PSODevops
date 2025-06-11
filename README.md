@@ -15,6 +15,11 @@ We are working as Group 12 (Student ID - Name):
 * 5026221156 - Muhammad Ali Husain 
 * 5026221159 - Candleline Audrina Firsta 
 
+You can find the project schedule here: [](https://intip.in/plandevops11)
+
+## Documentation
+The documentation of this project is here: [](https://its.id/m/pso12doc)
+
 # MyNotes - Simple and Modern Day-to-Day Tasks Notes App
 
 Welcome to **MyNotes** 📓, your solution for effortless day-to-day task management. This intuitive notes app, created with React.js and adorned with Tailwind CSS, offers a clean, modern, and user-friendly interface to help you stay organized and productive.
