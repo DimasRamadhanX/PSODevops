@@ -10,18 +10,28 @@ const Notes = ({ notes }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [text, setText] = useState("");
   const [filteredNotes, setFilteredNotes] = useState(notes);
+  const [sortOrder, setSortOrder] = useState("latest"); // NEW
 
-  const handleSearch = () => {
-    setFilteredNotes(
-      notes.filter((note) => {
-        if (note.title.toLowerCase().match(text.toLowerCase())) {
-          return note;
-        }
-      })
-    );
-  };
+  useEffect(() => {
+    let tempNotes = [...notes];
 
-  useEffect(handleSearch, [text, notes]);
+    // Filter by title
+    if (text) {
+      tempNotes = tempNotes.filter((note) =>
+        note.title.toLowerCase().includes(text.toLowerCase())
+      );
+    }
+
+    // Sort by date
+    tempNotes.sort((a, b) => {
+      const dateA = new Date(a.createdAt); // ✅ PAKAI createdAt
+      const dateB = new Date(b.createdAt);
+      return sortOrder === "latest" ? dateB - dateA : dateA - dateB;
+    });
+
+
+    setFilteredNotes(tempNotes);
+  }, [text, notes, sortOrder]);
 
   return (
     <section className="lg:w-[80%] lg:p-10 h-[screen-4%] lg:gap-4 md:w-[90%] md:h-[90%] md:p-4 md:gap-3 flex justify-between items-center flex-col bg-[#171616] rounded-[12px] sm:w-[90%] sm:h-[90%] sm:p-3 sm:gap-3 w-full h-full p-2 gap-3">
@@ -36,14 +46,10 @@ const Notes = ({ notes }) => {
         )}
         {showSearch && (
           <input
-            className="border-none outline-none bg-transparent text-white h-[80%] w-[60%] pl-6 text-[16px] "
+            className="border-none outline-none bg-transparent text-white h-[80%] w-[60%] pl-6 text-[16px]"
             type="text"
             autoFocus
             onChange={(e) => setText(e.target.value)}
-            //onChange={(e) => {
-            //  setText(e.target.value);
-            //  handleSearch();
-            //}}
             placeholder="Keywords..."
           />
         )}
@@ -59,6 +65,18 @@ const Notes = ({ notes }) => {
         </button>
       </header>
 
+      {/* 🔽 Sort Dropdown */}
+      <div className="flex justify-end w-full px-4">
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="bg-[#222] text-white p-2 rounded-md mb-2"
+        >
+          <option value="latest">Sort by Latest</option>
+          <option value="earliest">Sort by Earliest</option>
+        </select>
+      </div>
+
       <div className="notes_container grid lg:grid-cols-4 md:grid-cols-3 md:mt-4 sm:grid-cols-2 xs:grid-col-1 flex-1 overflow-auto w-full gap-4 sm:mt-3 p-2 grid-cols-2">
         {filteredNotes.length == 0 && (
           <p className="text-white">No Notes Found!</p>
@@ -67,6 +85,7 @@ const Notes = ({ notes }) => {
           <NoteItem key={note.id} note={note} />
         ))}
       </div>
+
       <Link
         to={"/create-note"}
         className="flex justify-center align-middle lg:w-[120px] md:w-[220px] sm:w-[320px] w-full gap-2 lg:mt-3 md:mt-3 sm:mt-3 mt-4 bg-gradient-to-br from-[#43CBFF] to-[#9708CC] text-green-50 p-2 rounded-md"
