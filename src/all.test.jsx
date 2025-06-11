@@ -35,7 +35,7 @@ describe("🧾 NoteItem Component", () => {
         <NoteItem note={mockNoteLong} />
       </MemoryRouter>
     );
-    const expected = longTitle.slice(0, 20) + "...";
+    const expected = longTitle.slice(0, 18) + "...";
     expect(screen.getByText(expected)).toBeInTheDocument();
   });
 
@@ -96,7 +96,7 @@ describe("📓 Notes Component", () => {
       </MemoryRouter>
     );
     expect(screen.getByText(shortTitle)).toBeInTheDocument();
-    expect(screen.getByText(longTitle.slice(0, 20) + "...")).toBeInTheDocument();
+    expect(screen.getByText(longTitle.slice(0, 18) + "...")).toBeInTheDocument();
   });
 
   it("menampilkan pesan jika tidak ada catatan cocok", () => {
@@ -129,7 +129,7 @@ describe("📓 Notes Component", () => {
     fireEvent.change(input, { target: { value: "singkat" } });
 
     expect(screen.getByText(shortTitle)).toBeInTheDocument();
-    expect(screen.queryByText(longTitle.slice(0, 20) + "...")).not.toBeInTheDocument();
+    expect(screen.queryByText(longTitle.slice(0, 18) + "...")).not.toBeInTheDocument();
   });
 });
 
