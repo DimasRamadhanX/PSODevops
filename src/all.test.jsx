@@ -35,7 +35,7 @@ describe("🧾 NoteItem Component", () => {
         <NoteItem note={mockNoteLong} />
       </MemoryRouter>
     );
-    const expected = longTitle.slice(0, 20) + "...";
+    const expected = longTitle.slice(0, 17) + "...";
     expect(screen.getByText(expected)).toBeInTheDocument();
   });
 
