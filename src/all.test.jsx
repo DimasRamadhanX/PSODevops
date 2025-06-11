@@ -129,7 +129,7 @@ describe("📓 Notes Component", () => {
     fireEvent.change(input, { target: { value: "singkat" } });
 
     expect(screen.getByText(shortTitle)).toBeInTheDocument();
-    expect(screen.queryByText(longTitle.slice(0, 20) + "...")).not.toBeInTheDocument();
+    expect(screen.queryByText(longTitle.slice(0, 17) + "...")).not.toBeInTheDocument();
   });
 });
 
