@@ -26,7 +26,7 @@ The documentation of this project is here: (https://its.id/m/pso12doc).
 Welcome to **MyNotes** 📓, your solution for effortless day-to-day task management. This intuitive notes app, created with React.js and adorned with Tailwind CSS, offers a clean, modern, and user-friendly interface to help you stay organized and productive.
 
 <div>
-  <img src="src/screenshots/noteapp.png" alt="MyNotes App" width="100%"/>
+  <img src="src/screenshots/notesapp.jpg" alt="MyNotes App" width="100%"/>
 </div>
 
 🔗 [Visit Here](https://react-notes-app-three.vercel.app/) to experience MyNotes in action!
