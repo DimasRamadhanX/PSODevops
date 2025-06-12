@@ -215,6 +215,29 @@ Branch `main` adalah branch produksi.
   - Menarik image dari DockerHub
   - Deploy image tersebut ke **Google Cloud Run**
 
+#### Contoh
+# 1. Pindah ke dev dan tarik versi terbaru
+`git checkout dev
+git pull origin dev`
+
+# 2. Pindah ke main dan tarik versi terbaru
+`git checkout main
+git pull origin main`
+
+# 3. Lakukan perubahan ke branch `dev`
+
+# 4. Commit dan push ke `dev`
+`git commit .
+git push origin dev`
+
+Jika sudah OK, lanjutkan:
+
+# 5. Merge dari dev ke main
+`git merge dev`
+
+# 6. Push hasil merge ke remote
+`git push origin main`
+
 #### 🔄 Rangkuman Alur
 ```mermaid
 graph TD;
