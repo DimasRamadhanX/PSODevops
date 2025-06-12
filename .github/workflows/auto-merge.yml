@@ -21,14 +21,12 @@ jobs:
           git config --global user.name "github-actions[bot]"
 
       - name: Fetch branches
-        run: |
-          git fetch origin dev:dev
-          git fetch origin main:main
+        run: git fetch origin
 
       - name: Merge dev -> main
         run: |
           git checkout main
-          git merge dev --no-ff -m "Auto-merge dev into main [CI success]"
+          git merge origin/dev --no-ff -m "Auto-merge dev into main [CI success]"
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} main
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
