@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+  workflow_call:
+  workflow_dispatch:  # ← Tambahin ini
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
