@@ -20,26 +20,27 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Upload node_modules artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: node-modules
-          path: node_modules
+          name: node-and-code
+          path: |
+            .
+            !node_modules/
+            node_modules/
 
   lint:
     name: Lint Code
     needs: setup-and-install
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Download node_modules artifact
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: node-modules
+          name: node-and-code
+          path: .
 
       - name: Lint code
         run: npm run lint
@@ -49,14 +50,12 @@ jobs:
     needs: setup-and-install
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Download node_modules artifact
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: node-modules
-
+          name: node-and-code
+          path: .
+          
       - name: Run tests
         run: npm test
 
@@ -65,8 +64,11 @@ jobs:
     needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: node-and-code
+          path: .
 
       - name: Get short commit hash
         id: commit
@@ -88,6 +90,8 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
+      # Checkout tidak diperlukan jika hash commit diteruskan,
+      # tapi kita butuh kode untuk mendapatkan hash commit yang sama.
       - name: Checkout Repository
         uses: actions/checkout@v4
 
