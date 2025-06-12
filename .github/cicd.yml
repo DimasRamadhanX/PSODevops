@@ -1,0 +1,74 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  lint-test-build-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint code
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/pso-kelompok12:latest .
+
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/pso-kelompok12:latest
+
+  deploy:
+    needs: lint-test-build-push  # Tunggu job sebelumnya selesai
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Check Active Account
+        run: gcloud auth list
+
+      - name: Pull Docker Image
+        run: docker pull docker.io/${{ secrets.DOCKER_USERNAME }}/pso-kelompok12:latest
+
+      - name: Deploy to Cloud Run from DockerHub
+        run: |
+          gcloud run deploy pso-kelompok12 \
+            --image docker.io/${{ secrets.DOCKER_USERNAME }}/pso-kelompok12:latest \
+            --region asia-southeast2 \
+            --platform managed \
+            --allow-unauthenticated
