@@ -165,7 +165,7 @@ describe("📝 CreateNote Form", () => {
     const input = screen.getByPlaceholderText(/title/i);
     fireEvent.change(input, { target: { value: "Catatan Baru" } });
 
-    const details = screen.getByPlaceholderText(/notes details/i);
+    const details = screen.getByPlaceholderText(/your notes/i);
     fireEvent.change(details, { target: { value: "Isi catatan" } });
 
     const save = screen.getByRole("button", { name: /save/i });
