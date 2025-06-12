@@ -18,6 +18,9 @@ We are working as Group 12 (Student ID - Name):
 ## Schedule
 You can find the project schedule here: (https://intip.in/plandevops11).
 
+## Cloud Live Link
+You can check the live link here: (https://pso-kelompok12-441660509509.asia-southeast2.run.app/).
+
 # Documentation
 The documentation of this project is here: (https://its.id/m/pso12doc).
 
