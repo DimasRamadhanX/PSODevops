@@ -60,7 +60,7 @@ To start using MyNotes on your local machine, follow these steps:
 
 ### 🌐 Technologies & Styling
 
-MyNotes showcases the perfect blend of tech & style:
+MyNotes showcases the perfect blend of technology & style:
 
 - **React.js:** Leverage the power of React.js for dynamic and responsive user interfaces.
 
