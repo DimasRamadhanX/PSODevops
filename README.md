@@ -193,7 +193,7 @@ Semua resource (seperti Cloud Run, bucket, dsb.) didefinisikan menggunakan Terra
 - Workflow `infra.yml` akan berjalan otomatis
 - Anda juga bisa menjalankan provisioning secara manual melalui tab **Actions** → **Infra Provisioning** → **Run workflow**
 
-#### 2. 🧪 Continuous Integration (CI) – Branch `dev`
+#### 2. 🧪 CI – Branch `dev`
 
 Branch `dev` digunakan sebagai tempat pengembangan aktif:
 
@@ -205,7 +205,7 @@ Branch `dev` digunakan sebagai tempat pengembangan aktif:
   - Build Docker image
   - Push Docker image ke DockerHub
 
-#### 3. 🚀 Continuous Deployment (CD) – Branch `main`
+#### 3. 🚀 CD – Branch `main`
 
 Branch `main` adalah branch produksi.
 
