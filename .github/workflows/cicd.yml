@@ -7,8 +7,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup-and-install:
-    name: Setup and Install Dependencies
+  # JOB 1: HANYA UNTUK LINT DAN TEST
+  lint-and-test:
+    name: Lint and Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,53 +23,21 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-and-code
-          path: |
-            .
-            !node_modules/
-            node_modules/
-
-  lint:
-    name: Lint Code
-    needs: setup-and-install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: node-and-code
-          path: .
-
       - name: Lint code
         run: npm run lint
 
-  test:
-    name: Run Tests
-    needs: setup-and-install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: node-and-code
-          path: .
-          
       - name: Run tests
         run: npm test
 
+  # JOB 2: HANYA UNTUK BUILD DAN PUSH IMAGE
   build-and-push:
     name: Build and Push Docker Image
-    needs: [lint, test]
+    # Job ini baru berjalan setelah 'lint-and-test' berhasil
+    needs: lint-and-test
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: node-and-code
-          path: .
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Get short commit hash
         id: commit
@@ -85,13 +54,13 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/pso-kelompok12:${{ steps.commit.outputs.sha }} .
           docker push ${{ secrets.DOCKER_USERNAME }}/pso-kelompok12:${{ steps.commit.outputs.sha }}
 
+  # JOB 3: HANYA UNTUK DEPLOY (INI SAMA PERSIS SEPERTI MILIK ANDA)
   deploy:
     name: Deploy to Cloud Run
+    # Job ini baru berjalan setelah 'build-and-push' berhasil
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      # Checkout tidak diperlukan jika hash commit diteruskan,
-      # tapi kita butuh kode untuk mendapatkan hash commit yang sama.
       - name: Checkout Repository
         uses: actions/checkout@v4
 
