@@ -115,7 +115,7 @@ Workflow ini dijalankan secara otomatis pada:
 8. **Push Docker Image**  
 Mengunggah Docker image ke DockerHub.
 
-### 🚀 Continuous Deployment (CD)
+### 🚀 CD
 
 Workflow ini secara otomatis melakukan deploy aplikasi ke **Google Cloud Run** setiap kali ada perubahan pada branch `main`.
 
