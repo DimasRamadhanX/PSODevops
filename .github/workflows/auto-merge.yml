@@ -1,34 +1,23 @@
-name: Auto Merge Dev to Main
+steps:
+  - name: Checkout main branch
+    uses: actions/checkout@v4
+    with:
+      ref: main
+      token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
-on:
-  workflow_run:
-    workflows: ["Continuous Integration"]
-    types:
-      - completed
+  - name: Configure Git
+    run: |
+      git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      git config --global user.name "github-actions[bot]"
 
-jobs:
-  merge:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
+  - name: Fetch all branches
+    run: git fetch origin
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  - name: Merge dev into main
+    run: |
+      git merge origin/dev --no-ff -m "Auto-merge dev into main [CI success]"
 
-      - name: Set up Git config
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-
-      - name: Fetch branches
-        run: |
-          git fetch origin dev:dev
-          git fetch origin main:main
-
-      - name: Merge dev -> main
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-        run: |
-          git checkout main
-          git merge dev --no-ff -m "Auto-merge dev into main [CI success]"
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} main
+  - name: Push changes to main
+    run: git push origin main
+    env:
+      GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
