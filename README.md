@@ -216,26 +216,27 @@ Branch `main` adalah branch produksi.
   - Deploy image tersebut ke **Google Cloud Run**
 
 #### Contoh
-# 1. Pindah ke dev dan tarik versi terbaru
-`git checkout dev
-git pull origin dev`
-
-# 2. Pindah ke main dan tarik versi terbaru
+##### 1. Pindah ke `main` dan tarik versi terbaru
 `git checkout main
 git pull origin main`
 
-# 3. Lakukan perubahan ke branch `dev`
+#### 2. Pindah ke `dev` dan tarik versi terbaru
+`git checkout dev
+git pull origin dev`
 
-# 4. Commit dan push ke `dev`
-`git commit .
+#### 3. Lakukan perubahan ke branch `dev`
+
+#### 4. Commit dan push ke `dev`
+`git add .
+git commit -m "contoh message"
 git push origin dev`
 
 Jika sudah OK, lanjutkan:
 
-# 5. Merge dari dev ke main
+#### 5. Merge dari dev ke main
 `git merge dev`
 
-# 6. Push hasil merge ke remote
+#### 6. Push hasil merge ke remote
 `git push origin main`
 
 #### 🔄 Rangkuman Alur
