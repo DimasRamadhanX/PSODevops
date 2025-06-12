@@ -6,6 +6,9 @@ on:
     types:
       - completed
 
+permissions:
+  contents: write  # Memberikan izin push ke repository
+
 jobs:
   merge:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -17,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Git config
+      - name: Set up Git config (commit identity)
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
@@ -32,6 +35,8 @@ jobs:
           git merge origin/dev --no-ff -m "Auto-merge dev into main [CI success]"
 
       - name: Push changes using Personal Access Token
+        env:
+          PAT: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
         run: |
-          git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:${PAT}@github.com/${{ github.repository }}
           git push origin main
