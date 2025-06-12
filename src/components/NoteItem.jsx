@@ -12,6 +12,9 @@ const NoteItem = ({ note }) => {
       <h4 className="text-[#FFF] lg:text-xl md:text-lg sm:text-sm text-xs">
         {note.title.length > 20 ? note.title.substr(0, 17) + "..." : note.title}
       </h4>
+      <p className="text-[rgba(255,255,255,1)] lg:text-[16px] md:text-[14px] sm:text-[12px] text-[10px] truncate w-full">
+        {note.details}
+      </p>
       <p className="text-[rgba(255,255,255,0.50)] lg:text-[16px] md:text-[14px] sm:text-[12px] text-[10px]">
         {note.date}
       </p>
