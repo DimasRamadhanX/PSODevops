@@ -13,14 +13,14 @@ const EditNote = ({ notes, setNotes }) => {
   // console.log(note);
   const [title, setTitle] = useState(note.title);
   const [details, setDetails] = useState(note.details);
-  const date = useCreateDate();
+  const { pretty, iso } = useCreateDate();
   const navigate = useNavigate();
 
   const handleForm = (e) => {
     e.preventDefault();
 
     if (title && details) {
-      const newNote = { ...note, title, details, date };
+      const newNote = { ...note, title, details, pretty, iso};
 
       const newNotes = notes.map((item) => {
         if (item.id == id) {
