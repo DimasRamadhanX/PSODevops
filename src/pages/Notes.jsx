@@ -72,8 +72,8 @@ const Notes = ({ notes }) => {
           onChange={(e) => setSortOrder(e.target.value)}
           className="bg-[#222] text-white p-2 rounded-md mb-2"
         >
-          <option value="latest">Sort by Latest</option>
-          <option value="earliest">Sort by Earliest</option>
+          <option value="latest">Latest</option>
+          <option value="earliest">Earliest</option>
         </select>
       </div>
 
