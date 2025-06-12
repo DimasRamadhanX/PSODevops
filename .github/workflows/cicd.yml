@@ -8,8 +8,8 @@ on:
 
 jobs:
   # JOB 1: HANYA UNTUK LINT DAN TEST
-  lint-and-test:
-    name: Lint and Test
+  setup-install-lint-and-test:
+    name: Setup, Install, ESLint, and ViTest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -33,7 +33,7 @@ jobs:
   build-and-push:
     name: Build and Push Docker Image
     # Job ini baru berjalan setelah 'lint-and-test' berhasil
-    needs: lint-and-test
+    needs: setup-install-lint-and-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
