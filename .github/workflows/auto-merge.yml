@@ -26,9 +26,9 @@ jobs:
           git fetch origin main:main
 
       - name: Merge dev -> main
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
         run: |
           git checkout main
           git merge dev --no-ff -m "Auto-merge dev into main [CI success]"
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} main
