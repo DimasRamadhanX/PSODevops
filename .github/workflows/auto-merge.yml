@@ -20,13 +20,16 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-      - name: Fetch branches
+      - name: Fetch all branches
         run: git fetch origin
 
-      - name: Merge dev -> main
+      - name: Merge dev into main
         run: |
-          git checkout main
           git merge origin/dev --no-ff -m "Auto-merge dev into main [CI success]"
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} main
+
+      - name: Push changes using Personal Access Token
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
+          git push origin main
