@@ -217,19 +217,19 @@ Branch `main` adalah branch produksi.
 
 #### Contoh
 ##### 1. Pindah ke `main` dan tarik versi terbaru
-<pre>```git checkout main
-git pull origin main```</pre>
+<pre>git checkout main
+git pull origin main</pre>
 
 #### 2. Pindah ke `dev` dan tarik versi terbaru
-<pre>```git checkout dev
-git pull origin dev```</pre>
+<pre>git checkout dev
+git pull origin dev</pre>
 
 #### 3. Lakukan perubahan ke branch `dev`
 
 #### 4. Commit dan push ke `dev`
-<pre>```git add .
+<pre>git add .
 git commit -m "contoh message"
-git push origin dev```</pre>
+git push origin dev</pre>
 
 Jika sudah OK, lanjutkan:
 
