@@ -234,7 +234,8 @@ git push origin dev</pre>
 Jika sudah OK, lanjutkan:
 
 #### 5. Merge dari dev ke main
-`git merge dev`
+<pre>git checkout main
+git merge dev</pre>
 
 #### 6. Push hasil merge ke remote
 `git push origin main`
