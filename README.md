@@ -179,3 +179,45 @@ Workflow ini dijalankan secara otomatis pada:
 
 6. **Terraform Apply**  
    Menerapkan rencana provisioning infrastruktur secara otomatis menggunakan opsi `-auto-approve`.
+
+### 🧩 Alur Kerja CI/CD & Provisioning
+
+#### 1. 🔨 Infrastruktur (Infra Provisioning)
+
+Semua resource (seperti Cloud Run, bucket, dsb.) didefinisikan menggunakan Terraform dan diprovisikan lewat branch `infra`.
+
+- Lakukan push ke branch `infra`
+- Workflow `infra.yml` akan berjalan otomatis
+- Anda juga bisa menjalankan provisioning secara manual melalui tab **Actions** → **Infra Provisioning** → **Run workflow**
+
+#### 2. 🧪 Continuous Integration (CI) – Branch `dev`
+
+Branch `dev` digunakan sebagai tempat pengembangan aktif:
+
+- Setiap push atau pull request ke `dev` akan memicu workflow `ci.yml`
+- CI akan:
+  - Install dependensi
+  - Lakukan linting
+  - Jalankan test
+  - Build Docker image
+  - Push Docker image ke DockerHub
+
+#### 3. 🚀 Continuous Deployment (CD) – Branch `main`
+
+Branch `main` adalah branch produksi.
+
+- Setelah CI berhasil di `dev`, lakukan merge ke `main`
+- Setiap push ke `main` akan memicu workflow `cd.yml`
+- CD akan:
+  - Menarik image dari DockerHub
+  - Deploy image tersebut ke **Google Cloud Run**
+
+#### 🔄 Rangkuman Alur
+```mermaid
+graph TD;
+  A[Developer Push to infra] --> B[Run Terraform Provisioning]
+  C[Developer Push to dev] --> D[Run CI: Lint, Test, Build, Push Docker Image]
+  D --> E[Merge dev into main]
+  E --> F[Run CD: Deploy to Cloud Run]
+
+   
