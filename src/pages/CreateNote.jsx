@@ -63,7 +63,7 @@ const CreateNote = ({ setNotes }) => {
         />
         <textarea
           rows="10"
-          placeholder="Masukin Kamu Notes..."
+          placeholder="Your Notes..."
           onChange={(e) => setDetails(e.target.value)}
           value={details}
           className="w-full outline-none text-white p-4 bg-[#ffffff03] resize-none rounded-b-md border-[1px] border-[#ffffff1a] border-solid lg:text-[18px] md:text-[16px] sm:text-[16px] text-[14px]"
