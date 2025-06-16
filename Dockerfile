@@ -6,7 +6,16 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+# === DUA BARIS PENTING YANG HILANG ADA DI SINI ===
+# Terima argumen build dari perintah `docker build --build-arg`
+ARG VITE_GPT_TOKEN
+# Set argumen itu sebagai environment variable agar bisa dibaca Vite
+ENV VITE_GPT_TOKEN=${VITE_GPT_TOKEN}
+# ===============================================
+
+# Jalankan build SETELAH environment variable di-set
 RUN npm run build
+
 
 # Step 2: Serve with Nginx
 FROM nginx:stable-alpine
