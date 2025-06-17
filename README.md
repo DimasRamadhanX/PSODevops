@@ -78,174 +78,91 @@ This MyNotes project was forked from Sahil Makadia's repository (https://github.
 
 ## Flow
 ![image](https://github.com/user-attachments/assets/f0c489ce-92e8-4015-b8f3-2c4b138ab8e2)
-### 🔄 CI
+### 🏗️ Infrastructure as Code (IaC) dengan Terraform
 
-Proyek ini menggunakan **GitHub Actions** untuk otomatisasi proses *linting*, *testing*, *build*, dan *push* Docker image ke DockerHub setiap kali ada perubahan di branch `dev`.
-
-#### 📁 File CI: `.github/workflows/ci.yml`
-
-Workflow ini dijalankan secara otomatis pada:
-
-- Push ke branch `dev`
-- Pull request ke branch `dev`
-
-#### ⚙️ Rangkaian Proses CI
-
-1. **Checkout Repository**  
-   Mengambil kode dari repository agar bisa diakses oleh langkah-langkah selanjutnya.
-
-2. **Setup Node.js**  
-   Mengatur environment Node.js versi 20.
-
-3. **Install Dependencies**  
-   Menjalankan `npm install` untuk menginstal semua dependensi proyek.
-
-4. **Lint Code**  
-   Menjalankan `npm run lint` untuk memastikan bahwa kode mematuhi standar penulisan.
-
-5. **Run Tests**  
-   Menjalankan `npm test` untuk menjalankan seluruh pengujian.
-
-6. **Login ke DockerHub**  
-   Autentikasi ke DockerHub menggunakan _secrets_ `DOCKER_USERNAME` dan `DOCKER_PASSWORD`.
-
-7. **Build Docker Image**  
-   Membangun Docker image dengan nama:  `${{ secrets.DOCKER_USERNAME }}/pso-kelompok12:latest`.
-
-8. **Push Docker Image**  
-Mengunggah Docker image ke DockerHub.
-
-### 🚀 CD
-
-Workflow ini secara otomatis melakukan deploy aplikasi ke **Google Cloud Run** setiap kali ada perubahan pada branch `main`.
-
-#### 📁 File CD: `.github/workflows/deploy.yml`
-
-Workflow ini dijalankan secara otomatis pada:
-
-- Push ke branch `main`
-
-#### ⚙️ Rangkaian Proses CD
-
-1. **Checkout Repository**  
-   Mengambil source code dari repository.
-
-2. **Set up Google Cloud SDK**  
-   Menyediakan `gcloud` CLI untuk menjalankan perintah deployment.
-
-3. **Authenticate ke Google Cloud**  
-   Menggunakan kunci service account dari secret `GCP_SA_KEY`.
-
-4. **Check Active Account**  
-   Mengecek akun Google Cloud yang aktif untuk konfirmasi autentikasi berhasil.
-
-5. **Pull Docker Image**  
-   Menarik image Docker terbaru dari DockerHub: `docker.io/dimdimbul/pso-kelompok12:latest`.
-
-6. **Deploy ke Cloud Run**  
-Melakukan deploy image ke layanan **Cloud Run** dengan konfigurasi berikut:
-- Service: `pso-kelompok12`
-- Region: `asia-southeast2`
-- Platform: `managed`
-- Akses: Terbuka untuk publik (`--allow-unauthenticated`)
-
-### 🏗️ Infrastructure Provisioning (IaC)
-
-Workflow ini digunakan untuk provisioning infrastruktur menggunakan **Terraform** secara otomatis ketika ada perubahan pada branch `infra` atau ketika dijalankan secara manual melalui GitHub Actions.
+Provisioning infrastruktur (seperti Google Cloud Storage Bucket) dikelola menggunakan **Terraform** dan diotomatisasi melalui GitHub Actions.
 
 #### 📁 File Infra: `.github/workflows/infra.yml`
 
-Workflow ini dijalankan secara otomatis pada:
-
-- Push ke branch `infra`
-- Manual trigger melalui tab **Actions** di GitHub (via `workflow_dispatch`)
+Workflow ini dijalankan saat:
+- Ada push ke branch `infra`.
+- Dijalankan secara manual dari tab Actions di GitHub (`workflow_dispatch`).
 
 #### ⚙️ Rangkaian Proses Provisioning
 
-1. **Checkout Repository**  
-   Mengambil kode repository agar file konfigurasi Terraform bisa diakses.
+1.  **Checkout Repository**: Mengunduh kode agar file konfigurasi Terraform (`main.tf`) dapat diakses.
+2.  **Setup Terraform**: Menginstal dan menyiapkan Terraform CLI di runner.
+3.  **Create `credentials.json`**: Membuat file kredensial Google Cloud dari secret `GCP_SA_KEY` agar Terraform dapat melakukan autentikasi.
+4.  **Terraform Init**: Menginisialisasi backend dan provider Terraform.
+5.  **Terraform Plan**: Membuat rencana eksekusi untuk melihat perubahan apa yang akan diterapkan pada infrastruktur.
+6.  **Terraform Apply**: Menerapkan perubahan yang direncanakan secara otomatis (`-auto-approve`) untuk membuat atau memperbarui resource di Google Cloud.
 
-2. **Setup Terraform**  
-   Mengatur environment dengan menginstal Terraform CLI.
+---
 
-3. **Buat credentials.json**  
-   Membuat file kredensial dari secret `GCP_SA_KEY` agar bisa digunakan oleh Terraform.
+### 🔄 CI/CD Terpadu
 
-4. **Terraform Init**  
-   Menginisialisasi direktori kerja Terraform.
+Proses Continuous Integration (CI) dan Continuous Delivery (CD) digabungkan menjadi satu alur kerja yang efisien, dipicu oleh perubahan pada branch `main`.
 
-5. **Terraform Plan**  
-   Menampilkan rencana perubahan infrastruktur berdasarkan konfigurasi dan variabel berikut:
-   - `credentials`: file JSON yang berisi kredensial service account
-   - `project`: ID project Google Cloud
-   - `create_bucket`: boolean flag untuk menentukan apakah bucket dibuat
+#### 📁 File CI/CD: `.github/workflows/cicd.yml`
 
-6. **Terraform Apply**  
-   Menerapkan rencana provisioning infrastruktur secara otomatis menggunakan opsi `-auto-approve`.
+Workflow ini berjalan secara otomatis setiap kali ada **push ke branch `main`**.
 
-### 🧩 Alur Kerja CI/CD & Provisioning
+#### ⚙️ Rangkaian Proses CI/CD
 
-#### 1. 🔨 Infrastruktur (Infra Provisioning)
+Workflow ini terdiri dari tiga *jobs* yang berjalan secara berurutan:
 
-Semua resource (seperti Cloud Run, bucket, dsb.) didefinisikan menggunakan Terraform dan diprovisikan lewat branch `infra`.
+1.  **🧪 Job 1: Lint & Test** (`setup-install-lint-and-test`)
+    -   **Setup Node.js**: Menyiapkan environment Node.js versi 20.
+    -   **Install Dependencies**: Menjalankan `npm install`.
+    -   **Lint & Test**: Menjalankan `npm run lint` untuk analisis kode statis dan `npm test` untuk pengujian unit menggunakan Vitest.
 
-- Lakukan push ke branch `infra`
-- Workflow `infra.yml` akan berjalan otomatis
-- Anda juga bisa menjalankan provisioning secara manual melalui tab **Actions** → **Infra Provisioning** → **Run workflow**
+2.  **📦 Job 2: Build & Push Image** (`build-and-push`)
+    * Job ini hanya berjalan jika *job pertama berhasil*.
+    -   **Login ke DockerHub**: Melakukan autentikasi menggunakan `DOCKER_USERNAME` dan `DOCKER_PASSWORD`.
+    -   **Build & Push**: Membangun Docker image dengan menyertakan *build argument* `VITE_GPT_TOKEN` dari *secrets*. Image diberi *tag* unik menggunakan **short commit hash** dan diunggah ke DockerHub.
 
-#### 2. 🧪 CI – Branch `dev`
+3.  **🚀 Job 3: Deploy ke Cloud Run** (`deploy`)
+    * Job ini hanya berjalan jika *job kedua berhasil*.
+    -   **Authenticate ke Google Cloud**: Menggunakan `GCP_SA_KEY` untuk autentikasi.
+    -   **Deploy**: Melakukan deploy image yang baru saja di-*push* (dengan tag commit hash) dari DockerHub ke layanan **Google Cloud Run**. Layanan dikonfigurasi untuk dapat diakses secara publik (`--allow-unauthenticated`) di region `asia-southeast2`.
 
-Branch `dev` digunakan sebagai tempat pengembangan aktif:
+---
 
-- Setiap push atau pull request ke `dev` akan memicu workflow `ci.yml`
-- CI akan:
-  - Install dependensi
-  - Lakukan linting
-  - Jalankan test
-  - Build Docker image
-  - Push Docker image ke DockerHub
+### 🧩 Alur Kerja Pengembangan
 
-#### 3. 🚀 CD – Branch `main`
+Dengan workflow baru, alur kerja menjadi lebih sederhana. Semua pengembangan yang siap produksi langsung didorong ke `main`.
 
-Branch `main` adalah branch produksi.
+1.  **Infrastruktur**: Jika ada perubahan infrastruktur (misal: mengubah `main.tf`), lakukan push ke branch `infra`.
+    ```bash
+    git checkout infra
+    # (lakukan perubahan pada file .tf)
+    git add .
+    git commit -m "feat: update terraform configuration"
+    git push origin infra
+    ```
 
-- Setelah CI berhasil di `dev`, lakukan merge ke `main`
-- Setiap push ke `main` akan memicu workflow `cd.yml`
-- CD akan:
-  - Menarik image dari DockerHub
-  - Deploy image tersebut ke **Google Cloud Run**
-
-#### Contoh
-##### 1. Pindah ke `main` dan tarik versi terbaru
-<pre>git checkout main
-git pull origin main</pre>
-
-#### 2. Pindah ke `dev` dan tarik versi terbaru
-<pre>git checkout dev
-git pull origin dev</pre>
-
-#### 3. Lakukan perubahan ke branch `dev`
-
-#### 4. Commit dan push ke `dev`
-<pre>git add .
-git commit -m "contoh message"
-git push origin dev</pre>
-
-Jika sudah OK, lanjutkan:
-
-#### 5. Merge dari dev ke main
-<pre>git checkout main
-git merge dev</pre>
-
-#### 6. Push hasil merge ke remote
-`git push origin main`
+2.  **Aplikasi**: Untuk merilis fitur atau perbaikan baru, lakukan push langsung ke branch `main`.
+    ```bash
+    git checkout main
+    git pull origin main
+    # (kerjakan fitur atau perbaikan)
+    git add .
+    git commit -m "feat: add new chart component"
+    git push origin main
+    ```
+    Push ini akan secara otomatis memicu seluruh alur CI/CD: Lint, Test, Build, Push, dan Deploy.
 
 #### 🔄 Rangkuman Alur
-```mermaid
-graph TD;
-  A[Developer Push to infra] --> B[Run Terraform Provisioning]
-  C[Developer Push to dev] --> D[Run CI: Lint, Test, Build, Push Docker Image]
-  D --> E[Merge dev into main]
-  E --> F[Run CD: Deploy to Cloud Run]
 
-   
+```mermaid
+graph TD
+    subgraph "Infrastructure"
+        A[Developer Push to `infra`] --> B{Run `infra.yml`} --> C[Terraform Provisions/Updates GCP Resources]
+    end
+
+    subgraph "Application"
+        D[Developer Push to `main`] --> E{Run `cicd.yml`}
+        E --> F[Job 1: Lint & Test]
+        F --> G[Job 2: Build & Push Docker Image]
+        G --> H[Job 3: Deploy to Cloud Run]
+    end
