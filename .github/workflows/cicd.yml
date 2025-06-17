@@ -56,7 +56,7 @@ jobs:
             -t ${{ secrets.DOCKER_USERNAME }}/pso-kelompok12:${{ steps.commit.outputs.sha }} .
           docker push ${{ secrets.DOCKER_USERNAME }}/pso-kelompok12:${{ steps.commit.outputs.sha }}
 
-  # JOB 3: HANYA UNTUK DEPLOY (INI SAMA PERSIS SEPERTI MILIK ANDA)
+  # JOB 3: HANYA UNTUK DEPLOY
   deploy:
     name: Deploy to Cloud Run
     # Job ini baru berjalan setelah 'build-and-push' berhasil
