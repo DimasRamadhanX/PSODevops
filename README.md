@@ -24,59 +24,7 @@ You can check the live link here: (https://pso-kelompok12-441660509509.asia-sout
 # Documentation
 The documentation of this project is here: (https://its.id/m/pso12doc).
 
-## MyNotes - Simple and Modern Day-to-Day Tasks Notes App
-
-Welcome to **MyNotes** 📓, your solution for effortless day-to-day task management. This intuitive notes app, created with React.js and adorned with Tailwind CSS, offers a clean, modern, and user-friendly interface to help you stay organized and productive.
-
-<div>
-  <img src="src/screenshots/notesapp.jpg" alt="MyNotes App" width="100%"/>
-</div>
-
-🔗 [Visit Here](https://react-notes-app-three.vercel.app/) to experience MyNotes in action!
-
-### Features
-
-📝 **Create and Edit Notes:** Capture your thoughts quickly by adding new notes. Need to make changes? No worries! Edit your notes seamlessly.
-
-🗑️ **Delete Notes:** Completed a task? Simply delete the note associated with it.
-
-📱 **Responsive Design:** Whether you're on your desktop, tablet, or smartphone, MyNotes provides a smooth and consistent user experience.
-
-🌈 **Modern Styling:** Enjoy a visually appealing design with carefully chosen colors, fonts, and layout.
-
-🎨 **Custom Icons:** Intuitive icons guide you through app actions, making your interaction enjoyable.
-
-### 🚀 Getting Started
-
-To start using MyNotes on your local machine, follow these steps:
-
-1. **Clone the Repository:** Clone the MyNotes repository to your local system.
-
-2. **Install Dependencies:** Install the necessary dependencies using your preferred package manager.
-
-3. **Launch the App:** Start the app using the appropriate command.
-
-4. **Access the App:** Open your web browser and navigate to the provided local URL to experience MyNotes.
-
-### 🌐 Technologies & Styling
-
-MyNotes showcases the perfect blend of tech & style:
-
-- **React.js:** Leverage the power of React.js for dynamic and responsive user interfaces.
-
-- **Tailwind CSS:** Style your app effortlessly using Tailwind CSS's utility-first approach.
-
-- **Icons:** Thoughtfully chosen icons from reputable sources enhance the visual appeal and user-friendliness.
-
-### 🗄️ Storage
-
-MyNotes utilizes the browser's local storage to ensure your notes persist even after closing the app.
-
-### 📬 Source
-
-This MyNotes project was forked from Sahil Makadia's repository (https://github.com/SahilM2063/React_Notes_App). 📅
-
-## Flow
+# Flow
 ![image](https://github.com/user-attachments/assets/f0c489ce-92e8-4015-b8f3-2c4b138ab8e2)
 ### 🏗️ Infrastructure as Code (IaC) dengan Terraform
 
@@ -157,12 +105,64 @@ Dengan workflow baru, alur kerja menjadi lebih sederhana. Semua pengembangan yan
 ```mermaid
 graph TD
     subgraph "Infrastructure"
-        A[Developer Push to `infra`] --> B{Run `infra.yml`} --> C[Terraform Provisions/Updates GCP Resources]
+        A[Developer Push to 'infra'] --> B{Run 'infra.yml'} --> C[Terraform Provisions/Updates GCP Resources]
     end
 
     subgraph "Application"
-        D[Developer Push to `main`] --> E{Run `cicd.yml`}
+        D[Developer Push to 'main'] --> E{Run 'cicd.yml'}
         E --> F[Job 1: Lint & Test]
         F --> G[Job 2: Build & Push Docker Image]
         G --> H[Job 3: Deploy to Cloud Run]
     end
+```
+# MyNotes - Simple and Modern Day-to-Day Tasks Notes App
+
+Welcome to **MyNotes** 📓, your solution for effortless day-to-day task management. This intuitive notes app, created with React.js and adorned with Tailwind CSS, offers a clean, modern, and user-friendly interface to help you stay organized and productive.
+
+<div>
+  <img src="src/screenshots/notesapp.jpg" alt="MyNotes App" width="100%"/>
+</div>
+
+🔗 [Visit Here](https://react-notes-app-three.vercel.app/) to experience MyNotes in action!
+
+### Features
+
+📝 **Create and Edit Notes:** Capture your thoughts quickly by adding new notes. Need to make changes? No worries! Edit your notes seamlessly.
+
+🗑️ **Delete Notes:** Completed a task? Simply delete the note associated with it.
+
+📱 **Responsive Design:** Whether you're on your desktop, tablet, or smartphone, MyNotes provides a smooth and consistent user experience.
+
+🌈 **Modern Styling:** Enjoy a visually appealing design with carefully chosen colors, fonts, and layout.
+
+🎨 **Custom Icons:** Intuitive icons guide you through app actions, making your interaction enjoyable.
+
+### 🚀 Getting Started
+
+To start using MyNotes on your local machine, follow these steps:
+
+1. **Clone the Repository:** Clone the MyNotes repository to your local system.
+
+2. **Install Dependencies:** Install the necessary dependencies using your preferred package manager.
+
+3. **Launch the App:** Start the app using the appropriate command.
+
+4. **Access the App:** Open your web browser and navigate to the provided local URL to experience MyNotes.
+
+### 🌐 Technologies & Styling
+
+MyNotes showcases the perfect blend of tech & style:
+
+- **React.js:** Leverage the power of React.js for dynamic and responsive user interfaces.
+
+- **Tailwind CSS:** Style your app effortlessly using Tailwind CSS's utility-first approach.
+
+- **Icons:** Thoughtfully chosen icons from reputable sources enhance the visual appeal and user-friendliness.
+
+### 🗄️ Storage
+
+MyNotes utilizes the browser's local storage to ensure your notes persist even after closing the app.
+
+### 📬 Source
+
+This MyNotes project was forked from Sahil Makadia's repository (https://github.com/SahilM2063/React_Notes_App). 📅
