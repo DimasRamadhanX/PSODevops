@@ -21,7 +21,7 @@ You can find the project schedule here: (https://intip.in/plandevops11).
 ## Cloud Live Link
 You can check the live link here: (https://pso-kelompok12-441660509509.asia-southeast2.run.app/).
 
-# Documentation
+## Documentation
 The documentation of this project is here: (https://its.id/m/pso12doc).
 
 # Flow
